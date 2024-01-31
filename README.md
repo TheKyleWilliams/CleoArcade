@@ -5,6 +5,7 @@ Welcome to the Keno Game, a fun and engaging number-based game where your goal i
 ## Features
 
 - **Classic Keno Experience:** Enjoy the traditional Keno gameplay.
+- **Free Daily Credits:** Enjoy keno at no cost! 20 credits will be added everyday. 
 - **User-Friendly Interface:** Easy-to-navigate game screens.
 - **Customizable Settings:** Personalize your game experience.
 - **Cross-Platform Play:** Available for both Windows and Mac.
