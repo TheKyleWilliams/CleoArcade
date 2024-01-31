@@ -1,6 +1,6 @@
 # Keno Game
 
-Welcome to the Keno Game, a fun and engaging number-based game where your goal is to predict which numbers will be drawn. Experience the thrill of Keno right from your computer, with intuitive gameplay and stunning graphics.
+Welcome to the Keno Game, a fun and engaging number-based game where your goal is to predict which numbers will be drawn. Experience the thrill of Keno right from your computer, with intuitive gameplay and stunning graphics. The best part is that you won't lose any money!
 
 ## Features
 
@@ -47,4 +47,4 @@ Welcome to the Keno Game, a fun and engaging number-based game where your goal i
 
 ## Support
 
-Having trouble running the game or found a bug? Please contact us at [support@email.com](mailto:support@email.com).
+Having trouble running the game or found a bug? Please contact us at [kyle.williams953@gmail.com](mailto:kyle.williams953@gmail.com).
