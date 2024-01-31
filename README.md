@@ -9,6 +9,8 @@ Welcome to the Keno Game, a fun and engaging number-based game where your goal i
 - **Customizable Settings:** Personalize your game experience.
 - **Cross-Platform Play:** Available for both Windows and Mac.
 
+![Game Screenshot](Capture.png)
+
 ## Installation
 
 ### Windows
