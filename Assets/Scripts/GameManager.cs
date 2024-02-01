@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        // make sure there's only one instance of a game manager
         if (Instance == null) 
         {
             Instance = this;
@@ -60,8 +61,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // initialize kenoNumbers and balance
         kenoNumbers = new List<GameObject>();
         balance = PlayerPrefs.GetInt("balance", 10);
+
+        // panel manager
         bonusPanel.SetActive(false);
         backgroundBonusPanel.SetActive(false);
 
@@ -77,34 +81,39 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-
+        // regular spin settings
         if (!isInBonusRound)
         {
+            // hide bonus panels
             bonusPanel.SetActive(false);
             backgroundBonusPanel.SetActive(false);
+
+            // ensure at least two numbers are selected and balance is sufficient 
             if (selectedNumbers < 3 || balance < 1)
             {
                 Debug.Log("Not enough numbers selected or insufficient balance.");
                 return;
             }
 
-
+            // deduct balance and save
             balance -= 1;
             PlayerPrefs.SetInt("balance", balance);
             PlayerPrefs.Save();
         }
 
-        // hide last number indicator
+        // hide last number indicator before game start
         lastDrawnNumberIndicator.Hide();
 
+        // start drawing
         StartCoroutine(DrawNumbersWithDelay());
     }
 
-    private void ResetGame()
+    public void ResetGame()
     {
         matches = 0;
         payout = 0;
 
+        // clear 'drawn' numbers (visually)
         foreach (GameObject number in kenoNumbers)
         {
             number.GetComponent<NumberSelect>().UpdateSkin();
@@ -114,16 +123,27 @@ public class GameManager : MonoBehaviour
     private IEnumerator DrawNumbersWithDelay()
     {
         ResetGame();
+
+        // initialize drawnNumbers
         HashSet<int> drawnNumbers = new HashSet<int>();
+
+        // draw all 20 numbers
         while (drawnNumbers.Count < 20)
         {
             inGame = true;
+
+            // number range to draw from
             int draw = Random.Range(1, 81);
+
             if (!drawnNumbers.Contains(draw))
             {
+                // last drawn number logic
                 if (drawnNumbers.Count == 19 && !isInBonusRound)
                 {
+                    // set last drawn number
                     GameObject lastDrawnKenoNumber = kenoNumbers[draw - 1];
+
+                    // put lastDrawnNumberIndicator at last number position
                     RectTransform lastKenoRectTransform = lastDrawnKenoNumber.GetComponent<RectTransform>();
                     if (lastKenoRectTransform != null)
                     {
@@ -131,16 +151,19 @@ public class GameManager : MonoBehaviour
                         lastDrawnNumberIndicator.ShowAtPosition(lastNumberAnchoredPosition);
                     }
                 }
+
+                // add drawn number to HashSet and MarkAsHit
                 drawnNumbers.Add(draw);
-                // kenoNumbers[draw - 1].GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
                 kenoNumbers[draw - 1].GetComponent<NumberSelect>().MarkAsHit();
 
+                // update 'hit' for live display
                 if (selectedKenoNumbers.Contains(draw))
                 {
                     matches++;
                 }
 
-                yield return new WaitForSeconds(0.145f); // Delay between each number draw
+                // Delay between each number draw
+                yield return new WaitForSeconds(0.145f); 
             }
         }
 
@@ -149,12 +172,19 @@ public class GameManager : MonoBehaviour
         // last number debug
         Debug.Log(drawnNumbers.Last());
 
+        // calculate payout
         int roundPayout = CalculatePayout(drawnNumbers);
+
+        // bonus round
         if (isInBonusRound)
         {
+            // calculate bonus round winnings 
             bonusRoundWinnings += roundPayout;
             realBonusRoundWinnings = bonusRoundWinnings;
+
+            // decrement free games
             freeSpinsLeft--;
+
             if (freeSpinsLeft <= 0)
             {
                 isInBonusRound = false;
@@ -164,6 +194,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // start bonus if last number drawn on winning round
             if (roundPayout > 0 && selectedKenoNumbers.Contains(drawnNumbers.Last()))
             {
                 isInBonusRound = true;
@@ -205,26 +236,12 @@ public class GameManager : MonoBehaviour
             lastDrawnNumberIndicator.ShowAtPosition(newPosition);
         }
     }
-    private void HighlightDrawnNumbers(HashSet<int> drawnNumbers)
-    {
-        foreach (GameObject number in kenoNumbers)
-        {
-            int numberValue = number.GetComponent<NumberSelect>().kenoNumberValue;
-            TextMeshProUGUI numberText = number.GetComponentInChildren<TextMeshProUGUI>();
-            if (drawnNumbers.Contains(numberValue))
-            {
-                numberText.color = Color.red;
-            }
-            else
-            {
-                numberText.color = Color.white;
-            }
-        }
-    }
 
     private int CalculatePayout(HashSet<int> drawnNumbers)
     {
         matches = 0;
+
+        // calculate number of 'hits'
         foreach (int number in selectedKenoNumbers)
         {
             if (drawnNumbers.Contains(number))
@@ -233,19 +250,31 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // line pickIndex up with payoutTable 
         int pickIndex = selectedNumbers - 3;
         int catchIndex = matches;
-        int roundPayout = (selectedNumbers >= 3 && selectedNumbers <= 10 && catchIndex >= 0 && catchIndex < payoutTable.GetLength(1))
-            ? payoutTable[pickIndex, catchIndex]
-            : 0;
 
+        // calculate payout from payoutTable
+        int roundPayout;
+        if (selectedNumbers >= 3 && selectedNumbers <=10 && catchIndex >= 0 && catchIndex < payoutTable.GetLength(1))
+        {
+            roundPayout = payoutTable[pickIndex, catchIndex];
+        }
+        else
+        {
+            roundPayout = 0;
+        }
+
+        // double payout if in bonus round
         if (isInBonusRound)
         {
             roundPayout *= 2;
         }
 
+        // set user display payout
         payout = roundPayout;
 
+        // update balance to reflect payout, then save
         balance += roundPayout;
         PlayerPrefs.SetInt("balance", balance);
         PlayerPrefs.Save();
@@ -258,7 +287,10 @@ public class GameManager : MonoBehaviour
         if (!selectedKenoNumbers.Contains(number))
         {
             selectedKenoNumbers.Add(number);
-            IncrementCounter();
+
+            // increment selectedNumbers
+            selectedNumbers++;
+            Debug.Log(selectedNumbers + " numbers selected");
         }
     }
 
@@ -267,44 +299,34 @@ public class GameManager : MonoBehaviour
         if (selectedKenoNumbers.Contains(number))
         {
             selectedKenoNumbers.Remove(number);
-            DecrementCounter();
+
+            // decrement selectedNumbers
+            selectedNumbers--;
+            Debug.Log(selectedNumbers + " numbers selected");
         }
     }
 
-    public void IncrementCounter() 
-    {
-        selectedNumbers++;
-        Debug.Log(selectedNumbers + " numbers selected");
-    }
-
-    public void DecrementCounter()
-    {
-        selectedNumbers--;
-        Debug.Log(selectedNumbers + " numbers selected");
-    }
-
-    public void ForceStartBonusRound()
-    {
-        isInBonusRound = true;
-        freeSpinsLeft = 12;
-        StartBonusSpins(); // Start the bonus spins immediately
-    }
-
-    // Call this method to start the bonus spins
     public void StartBonusSpins()
     {
+        // activate bonus panels
         bonusPanel.SetActive(true);
         backgroundBonusPanel.SetActive(true);
+
         StartCoroutine(BonusSpinsRoutine());
     }
 
     private IEnumerator BonusSpinsRoutine()
     {
+        // wait before bonus round start
         yield return new WaitForSeconds(2.0f);
+
+        // bonus spins
         while (isInBonusRound && freeSpinsLeft > 0)
         {
             ResetGame();
             GameStart();
+
+            // wait 3 seconds between free games
             yield return new WaitForSeconds(3.0f);
         }
 
@@ -331,6 +353,14 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("balance", balance);
             PlayerPrefs.Save();
         }
+    }
+
+// [Developer Tools]
+    public void ForceStartBonusRound()
+    {
+        isInBonusRound = true;
+        freeSpinsLeft = 12;
+        StartBonusSpins();
     }
 
 }

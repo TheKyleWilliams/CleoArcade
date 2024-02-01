@@ -56,6 +56,12 @@ public class NumberSelect : MonoBehaviour
         }
     }
 
+    // clear button functionality (coming soon)
+    public void ClearBoard()
+    {
+
+    }
+
     public void UpdateSkin()
     {
         if (selected)
@@ -69,6 +75,7 @@ public class NumberSelect : MonoBehaviour
 
         // Additional logic for hit and selectedAndHit skins can be added here if needed
     }
+
 
     // Method to be called from GameManager to mark as hit
     public void MarkAsHit()
