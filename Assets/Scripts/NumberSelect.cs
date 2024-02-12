@@ -56,12 +56,6 @@ public class NumberSelect : MonoBehaviour
         }
     }
 
-    // clear button functionality (coming soon)
-    public void ClearBoard()
-    {
-
-    }
-
     public void UpdateSkin()
     {
         if (selected)
