@@ -41,16 +41,16 @@ public class NumberSelect : MonoBehaviour
 
         if (!selected)
         {
-            if (GameManager.Instance.selectedNumbers < 10) 
+            if (NumberManager.Instance.selectedNumbers < 10) 
             {
-                GameManager.Instance.AddSelectedNumber(kenoNumberValue);
+                NumberManager.Instance.AddSelectedNumber(kenoNumberValue);
                 selected = !selected;
                 UpdateSkin();
             }
         }
         else
         {
-            GameManager.Instance.RemoveSelectedNumber(kenoNumberValue);
+            NumberManager.Instance.RemoveSelectedNumber(kenoNumberValue);
             selected = !selected;
             UpdateSkin();
         }
