@@ -10,11 +10,8 @@ public class NumberSelect : MonoBehaviour
     private Image kenoNumberImage; // To change the sprite
     public int kenoNumberValue;
 
-    // Skins as public fields
-    public Sprite normalSkin;
-    public Sprite selectedSkin;
-    public Sprite hitSkin;
-    public Sprite selectedAndHitSkin;
+    [SerializeField]
+    private Sprite normalSkin, selectedSkin, hitSkin, selectedAndHitSkin;
 
     private bool selected = false;
 
@@ -34,32 +31,26 @@ public class NumberSelect : MonoBehaviour
     void OnClick()
     {
         // make sure not in the middle of game
-        if (GameManager.Instance.inGame)
+        if (SpinManager.Instance.inGame)
         {
             return;
         }
 
         if (!selected)
         {
-            if (GameManager.Instance.selectedNumbers < 10) 
+            if (NumberManager.Instance.selectedNumbers < 10) 
             {
-                GameManager.Instance.AddSelectedNumber(kenoNumberValue);
+                NumberManager.Instance.AddSelectedNumber(kenoNumberValue);
                 selected = !selected;
                 UpdateSkin();
             }
         }
         else
         {
-            GameManager.Instance.RemoveSelectedNumber(kenoNumberValue);
+            NumberManager.Instance.RemoveSelectedNumber(kenoNumberValue);
             selected = !selected;
             UpdateSkin();
         }
-    }
-
-    // clear button functionality (coming soon)
-    public void ClearBoard()
-    {
-
     }
 
     public void UpdateSkin()
@@ -72,8 +63,6 @@ public class NumberSelect : MonoBehaviour
         {
             kenoNumberImage.sprite = normalSkin;
         }
-
-        // Additional logic for hit and selectedAndHit skins can be added here if needed
     }
 
 
