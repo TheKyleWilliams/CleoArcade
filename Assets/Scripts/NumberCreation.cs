@@ -50,30 +50,4 @@ public class NumberCreation : MonoBehaviour
             location = location - new Vector3(320, 0, 0) + new Vector3(0, -32, 0);
         }
     }
-
-    // private void CreateLastDrawnNumberIndicator()
-    // {
-    //     if (lastDrawnNumberIndicatorPrefab != null)
-    //     {
-    //         GameObject indicator = Instantiate(lastDrawnNumberIndicatorPrefab, canvas.transform);
-    //         indicator.transform.localPosition = new Vector3(0, 0, 0); // Adjust as needed
-    //         indicator.GetComponent<RectTransform>().sizeDelta = new Vector2(26, 26);
-
-    //         // Set the reference in GameManager
-    //         if (GameManager.Instance != null)
-    //         {
-    //             GameManager.Instance.SetLastDrawnNumberIndicator(indicator.GetComponent<LastDrawnNumberIndicator>());
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("GameManager instance not found.");
-    //         }
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError("LastDrawnNumberIndicator prefab not assigned.");
-    //     }
-
-    //     GameManager.Instance.lastDrawnNumberIndicator.Hide();
-    // }
 }

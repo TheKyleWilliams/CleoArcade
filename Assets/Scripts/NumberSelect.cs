@@ -10,11 +10,8 @@ public class NumberSelect : MonoBehaviour
     private Image kenoNumberImage; // To change the sprite
     public int kenoNumberValue;
 
-    // Skins as public fields
-    public Sprite normalSkin;
-    public Sprite selectedSkin;
-    public Sprite hitSkin;
-    public Sprite selectedAndHitSkin;
+    [SerializeField]
+    private Sprite normalSkin, selectedSkin, hitSkin, selectedAndHitSkin;
 
     private bool selected = false;
 
@@ -66,8 +63,6 @@ public class NumberSelect : MonoBehaviour
         {
             kenoNumberImage.sprite = normalSkin;
         }
-
-        // Additional logic for hit and selectedAndHit skins can be added here if needed
     }
 
 
