@@ -34,7 +34,7 @@ public class NumberSelect : MonoBehaviour
     void OnClick()
     {
         // make sure not in the middle of game
-        if (GameManager.Instance.inGame)
+        if (SpinManager.Instance.inGame)
         {
             return;
         }

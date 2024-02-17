@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7796943627298442788}
   - component: {fileID: 1242303312293314463}
   - component: {fileID: 2163399575620612665}
-  - component: {fileID: -453409495690226929}
+  - component: {fileID: 6118735834241415613}
   m_Layer: 5
   m_Name: BonusImage
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-453409495690226929
+--- !u!114 &6118735834241415613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,6 +85,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6287041051414594858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a2cd907777378c48b05dac81d759b22, type: 3}
+  m_Script: {fileID: 11500000, guid: cc2218c657208e14dab987e68b578573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
