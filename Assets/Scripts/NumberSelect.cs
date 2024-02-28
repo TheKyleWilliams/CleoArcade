@@ -55,13 +55,18 @@ public class NumberSelect : MonoBehaviour
 
     public void UpdateSkin()
     {
+        // grab text component to change color
+        TextMeshProUGUI text = kenoNumber.GetComponentInChildren<TextMeshProUGUI>();
+
         if (selected)
         {
             kenoNumberImage.sprite = selectedSkin;
+            text.color = Color.yellow;
         }
         else
         {
             kenoNumberImage.sprite = normalSkin;
+            text.color = Color.white;
         }
     }
 
