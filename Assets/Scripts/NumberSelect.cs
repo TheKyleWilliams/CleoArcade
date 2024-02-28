@@ -70,6 +70,16 @@ public class NumberSelect : MonoBehaviour
         }
     }
 
+    public void ResetSkin()
+    {
+        // reset text color and skin to default
+        TextMeshProUGUI text = kenoNumber.GetComponentInChildren<TextMeshProUGUI>();
+        text.color = Color.white;
+        kenoNumberImage.sprite = normalSkin;
+
+        selected = false;
+    }
+
 
     // Method to be called from GameManager to mark as hit
     public void MarkAsHit()

@@ -995,6 +995,7 @@ GameObject:
   - component: {fileID: 410513872}
   - component: {fileID: 410513871}
   - component: {fileID: 410513870}
+  - component: {fileID: 410513873}
   m_Layer: 5
   m_Name: ClearButton
   m_TagString: Untagged
@@ -1116,6 +1117,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410513868}
   m_CullTransparentMesh: 1
+--- !u!114 &410513873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410513868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737161e8df686be4081389a9016e8f02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearButton: {fileID: 410513870}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

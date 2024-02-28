@@ -15,8 +15,7 @@ public class SpinManager : MonoBehaviour
         private set { instance = value; }
     }
 
-    [SerializeField]
-    private LastNumberIndicator lastNumberIndicator;
+    public LastNumberIndicator lastNumberIndicator;
 
     [SerializeField]
     private GameObject bonusPanel;
